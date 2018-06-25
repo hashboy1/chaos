@@ -14,7 +14,9 @@ public class configer {
       
       //http service port
       public static String DefaultHttpIP="192.168.0.160";
-      public static int DefaultHttpPort=8888;
+      public static int DefaultSOAPort=8888;
+      public static int DefaultFileSystemPort=8889;
+      
        
       //encode configuration
       public static String encoding = "ISO-8859-1";

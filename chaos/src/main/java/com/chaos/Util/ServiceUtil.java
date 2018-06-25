@@ -229,7 +229,7 @@ public String ZooKeeperGetServiceURL(String ServiceNodeName) throws Exception{
 	public static void main(String[] args) throws Exception {
 		
 		ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null);
-		ServiceUtil cl = new ServiceUtil(configer.DefaultHttpIP,configer.DefaultHttpPort,zk);
+		ServiceUtil cl = new ServiceUtil(configer.DefaultHttpIP,configer.DefaultSOAPort,zk);
 		cl.ZooKeeperServiceRegister();
 		cl.ZooKeeperListService();
 

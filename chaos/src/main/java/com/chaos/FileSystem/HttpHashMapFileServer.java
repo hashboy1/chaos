@@ -1,15 +1,9 @@
-package com.chaos.SOA;
+package com.chaos.FileSystem;
 
-
-import java.util.Date;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.zookeeper.ZooKeeper;
+import java.net.InetAddress;
 
 import com.chaos.Config.configer;
-import com.chaos.Util.ServiceUtil;
+import com.chaos.Util.hashmapUtil;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -20,33 +14,18 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpRequestEncoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
-
-
-/*
- * 
- * all services will be registered in zookeeper
- * 
- * 
- */
-
-class HttpJSONSOAServer {
+class HttpHashMapFileServer {
     private static final String DEFAULT_URL = "/src/";
     
     public void run(final String IP,final int port, final String url)throws Exception{
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null); //the zookeeper connection will be remained until the program closed
+        hashmapUtil  hmu = new hashmapUtil();
         try{
-        	
-          //register the temporary key in zookeeper, session will still exists until the session closed
-            ServiceUtil cl = new ServiceUtil(IP,port,zk);
-            cl.ZooKeeperServiceRegister();
-	
-    	    
-    	    //web service startup
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
             .childHandler(new ChannelInitializer<SocketChannel>() {
@@ -56,23 +35,24 @@ class HttpJSONSOAServer {
                     ch.pipeline().addLast("http-aggregator", new HttpObjectAggregator(65536));
                     ch.pipeline().addLast("http-encoder", new HttpResponseEncoder());
                     ch.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
-                    ch.pipeline().addLast("fileServerHandler", new HttpJSONSOAServerHandler(url,cl));
+                    ch.pipeline().addLast("fileServerHandler", new HttpHashMapFileServerHandler(url,hmu.getHM()));
                 }
-            });              
+            });
+
+          
             ChannelFuture f = b.bind(IP, port).sync();
             System.out.println("HTTP 文件服务器启动, 地址是： " + "http://"+ IP +":" + port + url);
             f.channel().closeFuture().sync();
             
         }finally{
-        	zk.close();
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
     }
     
     public static void main(String[] args) throws Exception {
-        String IP = configer.DefaultHttpIP;
-    	int port = configer.DefaultSOAPort;
+    	String IP = configer.DefaultHttpIP;
+    	int port = configer.DefaultFileSystemPort;
         if(args.length > 0)
         {
             try{
@@ -80,13 +60,13 @@ class HttpJSONSOAServer {
                 port = Integer.parseInt(args[1]);
             }catch(NumberFormatException e){
             	IP = configer.DefaultHttpIP;
-                port = configer.DefaultSOAPort;
+                port = configer.DefaultFileSystemPort;
             }
         }
        
         String url = "/index.html";
      
-        new HttpJSONSOAServer().run(IP,port, url);
+        new HttpHashMapFileServer().run(IP,port, url);
     }
 }
 
