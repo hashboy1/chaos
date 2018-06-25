@@ -87,7 +87,16 @@ public class ServiceUtil {
 
    	public void ZooKeeperServiceRegister() throws Exception
    	{
-   	       
+   	    /*
+   	     *    zookeeper nodes structures:
+   	     *                  BaseKey -> ServiceKey1  -> host1ip:port            
+   	     *                                          -> host2ip:port
+   	     *                             ServiceKey2  -> host1ip:port 
+   	     *                                          -> host2ip:port
+   	     *    
+   	     */
+   		
+   		
 
    		//create the root path for SOAServices
 	      Stat exists = zk.exists(configer.ZooKeeperBaseKey, false);   
@@ -100,26 +109,26 @@ public class ServiceUtil {
    	     for (Class a :  Lc)
    	     {
    	
-   	    	
    	    	Annotation cc=a.getAnnotation(ServiceMapping.class);
-
-   	    	 ServiceMapping sm = (ServiceMapping)a.getAnnotation(ServiceMapping.class); 
+            ServiceMapping sm = (ServiceMapping)a.getAnnotation(ServiceMapping.class); 
    	    	 	 
    	    	 if (sm!=null)
    	    	 {
-   	    	 
+   	    	 String ServiceName = sm.Value();   //Service Name
+   	    	 String zServicenode = configer.ZooKeeperBaseKey+"/"+ServiceName;
    	    	 String url = this.IP+":"+this.port+"/"+a.getName();
-   	    	 String key = sm.Value();
-
-   	    	 String znode = configer.ZooKeeperBaseKey+"/"+key;
-   	    	 exists = zk.exists(znode, false);  
-	   	        if (exists == null) {           // the child node will be EPHEMERAL
-	   	        	System.out.println("register zookeeper key:"+znode);
-	   	            zk.create(znode, url.getBytes(configer.encoding), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);  
-	   	          
-	   	        	//zk.create(znode, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);  
-	   	         
-	   	        }  
+   	    	 String hosturl=this.IP+":"+this.port;
+   	    	 String hosturlkey=zServicenode+"/"+hosturl;
+   	    	 
+   	    	 //Create the PERSISTENT service Node, if not exists
+   	    	 exists = zk.exists(zServicenode, false);  
+	   	     if (exists == null)            
+	   	     zk.create(zServicenode, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);         
+	   	     
+	   	     //create the EPHEMERAL host node,if not exists
+	   	     exists = zk.exists(hosturlkey, false); 
+	   	     if (exists == null)            
+		   	 zk.create(hosturlkey, url.getBytes(configer.encoding), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);         
    	    	 
    	    	 }
    	     }
@@ -127,35 +136,92 @@ public class ServiceUtil {
    	}
    	
    	
-   	public Map<String,String> ZooKeeperListService() throws Exception{
+   	public HashMap<String,Object> ZooKeeperListService() throws Exception{
    		
    	    Stat exists = zk.exists(configer.ZooKeeperBaseKey, false);   
 	      if (exists == null) {           //if it can't found the root node, it will create the root node and it will be persistent.
      	    System.out.println("it can't find the Base Path:"+configer.ZooKeeperBaseKey);
             return null;
          }  
+	            
+	      HashMap<String,Object> rv=new HashMap<>();
 	      
-	      
-	      Map<String,String> rv=new HashMap<>();
-	      
-	      List<String> nodelist= zk.getChildren(configer.ZooKeeperBaseKey, false);
-	      for (String nodename:nodelist)
+	      List<String> ServiceNodeList= zk.getChildren(configer.ZooKeeperBaseKey, false);
+	      for (String ServiceNodeName:ServiceNodeList)
 	      {
 	    	  
-	    	  String nodeFullName= configer.ZooKeeperBaseKey+"/"+nodename;
-	    	  System.out.println("child node name:"+nodeFullName);
-	    	  byte[] nodeDatabyte = zk.getData(nodeFullName, false, null);
-	    	  String nodeData = null;
-	    	  if (nodeDatabyte !=null && nodeDatabyte.length>0)
+	    	  String ServiceNodeFullName= configer.ZooKeeperBaseKey+"/"+ServiceNodeName;
+	    	  System.out.println("Service Node Name:"+ServiceNodeFullName);
+	    	 
+	    	  List<String> HostNodeList= zk.getChildren(ServiceNodeFullName, false);
+	    	  String[] HostNodeDataList = new String[HostNodeList.size()];
+	    	  int i=0;
+	    	  for (String HostNodeName:HostNodeList)
 	    	  {
-	    	  nodeData=new String(nodeDatabyte,configer.encoding);
-	    	  System.out.println("child node data:"+nodeData);
+	    		  String HostNodeFullName= ServiceNodeFullName+"/"+HostNodeName;
+	    		  
+	    		  byte[] nodeDatabyte = zk.getData(HostNodeFullName, false, null);
+		    	  String nodeData = null;
+		    	  if (nodeDatabyte !=null && nodeDatabyte.length>0)
+		    	  {
+		    	  nodeData=new String(nodeDatabyte,configer.encoding);
+		    	  System.out.println("child node data:"+nodeData);
+		    	  }		    	  
+		    	  HostNodeDataList[i]=nodeData;
+		    	  i++;	  
 	    	  }
-	    	  
-	    	  rv.put(nodename, nodeData);
+	    	    
+	    	  rv.put(ServiceNodeName, HostNodeDataList);
 	      }
 	      
 	      return rv;
+   		
+   	}
+   	
+   	
+   	
+public String ZooKeeperGetServiceURL(String ServiceNodeName) throws Exception{
+   		
+              String ServiceNodeFullName= configer.ZooKeeperBaseKey+"/"+ServiceNodeName;
+              Stat exists = zk.exists(ServiceNodeFullName, false); 
+              if (exists ==null) 
+              {   
+            	  System.out.println("Unknown Service Node:"+ServiceNodeFullName);
+            	  return null; 
+              }
+	    	  List<String> HostNodeList= zk.getChildren(ServiceNodeFullName, false);
+	    	  
+	    	  if (HostNodeList.size()<=0)
+	    	  {
+	    		  System.out.println("no host found for Service Node:"+ServiceNodeFullName);
+            	  return null; 
+	    	  }
+	    	  
+	    	  String[] HostNodeDataList = new String[HostNodeList.size()];
+	    	  int i=0;
+	    	  for (String HostNodeName:HostNodeList)
+	    	  {
+	    		  String HostNodeFullName= ServiceNodeFullName+"/"+HostNodeName;
+	    		  byte[] nodeDatabyte = zk.getData(HostNodeFullName, false, null);
+		    	  String nodeData = null;
+		    	  if (nodeDatabyte !=null && nodeDatabyte.length>0)
+		    	  {
+		    	  nodeData=new String(nodeDatabyte,configer.encoding);
+		    	  System.out.println("child node data:"+nodeData);
+		    	  }		    	  
+		    	  HostNodeDataList[i]=nodeData;
+		    	  i++;	  
+	    	  }
+	    	  
+	    	  //System.out.println("Array upper:"+HostNodeDataList.length);
+	    	  int random = DigitalUtil.getRandomNum(HostNodeDataList.length);  //get the random number
+	    	  String detailURL=HostNodeDataList[random];
+	    	  if (detailURL.indexOf("http://") == -1) detailURL="http://"+detailURL;
+	    	  System.out.println("get the detail service URL:"+HostNodeDataList[random]);  
+	    	  return detailURL;   //return the random available host for load balance
+	    
+	      
+	 
    		
    	}
    	
@@ -166,6 +232,11 @@ public class ServiceUtil {
 		ServiceUtil cl = new ServiceUtil(configer.DefaultHttpIP,configer.DefaultHttpPort,zk);
 		cl.ZooKeeperServiceRegister();
 		cl.ZooKeeperListService();
+
+	  Thread.sleep(100000);  
+		
+		
+		
 		
 		/*
 		List<Class<?>> lc= cl.getAllClassess("", "");

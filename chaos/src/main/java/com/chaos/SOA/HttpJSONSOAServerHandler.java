@@ -35,7 +35,7 @@ import io.netty.util.CharsetUtil;
 public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHttpRequest>{
 
     private final String url;
-    private ServiceUtil su;
+    private ServiceUtil su;    //for services register and list
 
     
     public HttpJSONSOAServerHandler(String url,ServiceUtil su) {
@@ -46,21 +46,18 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
     @Override
     protected void messageReceived(ChannelHandlerContext ctx,
             FullHttpRequest request) throws Exception {
-    	/*
+    	
     	System.out.println("-----------------------------------");
     	System.out.println(request.toString());
     	System.out.println("-----------------------------------");
-    	*/
+    	
     	
         if(!request.decoderResult().isSuccess())
         {
             sendError(ctx, HttpResponseStatus.BAD_REQUEST);
             return;
         }
-        
-        
-      
-        
+       
         String uri = request.uri();         
         System.out.println("request url:" + uri);
         
@@ -81,7 +78,33 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
         }
         
         //check unuseful message
-       if (uri.equals("/favicon.ico")) return; //unuseful message
+       if (uri.equals("/favicon.ico")) return; //unuseful message  
+       
+       if (uri.indexOf(".") ==-1 )   //this is one call  service name,we must get the detail URL from zookeeper,it will be redirected to new url.
+       {
+    	   if (uri.substring(0,1).equals("/")) uri=uri.substring(1);  //reduce the "/"
+    	   String newurl=null;
+    	   newurl = su.ZooKeeperGetServiceURL(uri);
+    	   if (newurl == null || newurl.length()==0)  sendError(ctx, HttpResponseStatus.BAD_REQUEST);
+    	   else
+    		   {
+    		   
+    		   //added the parameter into the URL, maybe this is not good solution, i will fix it in the furture
+    		   HttpUtil hu= new HttpUtil(request);
+    		   Map<String,String> ParameterInt= hu.parse();
+    	       String parameter ="?";
+    	        int i =0;
+    	        for (Map.Entry<String, String> entry : ParameterInt.entrySet()) 
+    	        {
+    	        	parameter = parameter + entry.getKey()+"="+entry.getValue() +"&";
+    	        	
+    	        }
+    		   
+    		   sendRedirect(ctx,newurl+parameter);
+    		 
+    		   }
+    	   return; 
+       }
         
        //analysis the HttpMethod 
        if(request.method() != HttpMethod.GET )
@@ -95,7 +118,6 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
     	   System.out.println("this is the Post Methond");
     	   if (uri.indexOf("?") > -1 ) uri = uri.substring(0, uri.indexOf("?"));   // avoid the parameters on URL
        }
-  
        else
        {
                 sendError(ctx, HttpResponseStatus.METHOD_NOT_ALLOWED);
@@ -133,8 +155,6 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
      {
        
     	// get the classname by uri from redis
-    	 
-    	 
     	//Class Constructed,maybe i need create one class to implement its
         String writecontent = ServiceUtil.callBaseService(uri.substring(1), parameter[0], parameter[1]);
                
@@ -179,7 +199,11 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
         response.headers().set(HttpHeaderNames.LOCATION, newUri);
         response.headers().set(HttpHeaderNames.ORIGIN,"*");
         response.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN,"*");
+       
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+     
+    
+  
     }
     private static void sendError(ChannelHandlerContext ctx, HttpResponseStatus status){
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status, 
@@ -188,6 +212,7 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
         response.headers().set(HttpHeaderNames.ORIGIN,"*");
         response.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN,"*");
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        
     }
     private static void setContentTypeHeader(HttpResponse response){
         MimetypesFileTypeMap mimetypesFileTypeMap = new MimetypesFileTypeMap();
@@ -223,24 +248,36 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
       
        
 
-    Map<String,String>  keyList= su.ZooKeeperListService();
-        
-    for (Map.Entry<String, String> entry : keyList.entrySet()) {
-          
-        	
-        	if (entry.getKey().length()>0)
-        	{
-	        	
-		            buf.append("<li>Download URL：<a href=\"http:\\\\");
-		            buf.append(entry.getValue());
-		            buf.append("\">");
-		            buf.append(entry.getKey());
-		            buf.append("</a></li>\r\n");
-	        	
-	        }
-        	} 
-       
+    Map<String,Object>  keyList= su.ZooKeeperListService();
+    
+    
+    if (keyList == null )
+    {
+    	buf.append("<h3>");
+    	 buf.append("System can't find the service from register server.");
+    	buf.append("</h3>");
+    }
+    else
+    {	
+	    for (Map.Entry<String, Object> entry : keyList.entrySet()) {
+		        	if (entry.getKey().length()>0)
+			        	{
+		        		
+		        		String[] hosturllist=(String[]) entry.getValue();
+		        		int i =0;
+		        		      while (i<hosturllist.length)
+		        		      {
+					            buf.append("<li>Service URL：<a href=\"http:\\\\");
+					            buf.append(hosturllist[i]);
+					            buf.append("\">");
+					            buf.append(entry.getKey());
+					            buf.append("</a></li>\r\n");
+					            i++;
+		        		      }
+				        }
+	        	} 
 
+    }
         
         buf.append("</ul></body></html>\r\n");
         

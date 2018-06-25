@@ -3,8 +3,8 @@ package com.chaos.SOAService;
 import com.chaos.Annotation.ServiceMapping;
 import com.chaos.BaseService.BaseService;
 
-@ServiceMapping(Value="PrintService2",Method =0)   //Service Register
-public class PrintService2 extends BaseService {
+@ServiceMapping(Value="PrintService2",Method =0)   //Service Register, the ServiceMapping value can't  one "."
+public class PrintService2 extends BaseService {   //the service class must belong to one java package  
 
 
 	@Override
