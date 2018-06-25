@@ -89,7 +89,7 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
     	   else
     		   {
     		   
-    		   //added the parameter into the URL, maybe this is not good solution, i will fix it in the furture
+    		   //added the parameter into the URL, maybe this is not good solution, i will fix it in the future
     		   HttpUtil hu= new HttpUtil(request);
     		   Map<String,String> ParameterInt= hu.parse();
     	       String parameter ="?";
@@ -174,6 +174,7 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
         response.content().writeBytes(buffer);  
        
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE); 
+
      }
      catch (ClassNotFoundException ex) 
      {
@@ -199,7 +200,7 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
         response.headers().set(HttpHeaderNames.LOCATION, newUri);
         response.headers().set(HttpHeaderNames.ORIGIN,"*");
         response.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN,"*");
-       
+  
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
      
     

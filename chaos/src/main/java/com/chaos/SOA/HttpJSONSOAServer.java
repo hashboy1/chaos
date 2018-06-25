@@ -83,8 +83,7 @@ class HttpJSONSOAServer {
                 port = configer.DefaultHttpPort;
             }
         }
-        
-        //String url = DEFAULT_URL;
+       
         String url = "/index.html";
      
         new HttpJSONSOAServer().run(IP,port, url);
