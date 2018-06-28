@@ -1,5 +1,12 @@
-<form action="http://192.168.0.160:8888/PrintServiceTesting" method="POST">
+<form action="http://192.168.0.160:8889/upload" method="POST">
   <p>First name: <input type="text" name="fname" /></p>
   <p>Last name: <input type="text" name="lname" /></p>
+  <input type="submit" value="Submit" />
+</form>
+
+
+
+<form action="http://192.168.0.160:8889/upload" method="POST" enctype="multipart/form-data">
+  <p>file name: <input type="file" name="fname" /></p>
   <input type="submit" value="Submit" />
 </form>

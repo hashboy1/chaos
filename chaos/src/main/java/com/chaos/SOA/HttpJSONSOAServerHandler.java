@@ -47,9 +47,9 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
     protected void messageReceived(ChannelHandlerContext ctx,
             FullHttpRequest request) throws Exception {
     	
-    	System.out.println("-----------------------------------");
-    	System.out.println(request.toString());
-    	System.out.println("-----------------------------------");
+    	//System.out.println("-----------------------------------");
+    	//System.out.println(request.toString());
+    	//System.out.println("-----------------------------------");
     	
     	
         if(!request.decoderResult().isSuccess())

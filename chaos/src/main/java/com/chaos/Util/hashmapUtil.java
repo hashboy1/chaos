@@ -14,7 +14,7 @@ public class hashmapUtil {
 	
 	public hashmapUtil() throws Exception   //constructor
 	{
-		putFolder(configer.sourcePath);
+		putFolder(configer.SourcePath);
 	}
 	
 	public void putFolder(String path) throws Exception
@@ -41,7 +41,7 @@ public class hashmapUtil {
 	                           in.read(filecontent);  
 	                           in.close();
 	                           //System.out.println("Filename:"+fileArray[i].getPath());
-	                           String filename = fileArray[i].getPath().replace(configer.sourcePath,"\\").replace("\\", "/");
+	                           String filename = fileArray[i].getPath().replace(configer.SourcePath,"\\").replace("\\", "/");
 	                           //System.out.println("Key:"+filename);
 	                           //System.out.println("file content:"+new String(filecontent, configer.encoding));
 	                    	   hm.put(filename, filecontent);
