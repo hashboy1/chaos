@@ -33,27 +33,27 @@ import com.chaos.Util.ServiceUtil;
  * 
  * 
  */
-@Service
-class HttpJSONSOAServerSpring {
-    //private static final String DEFAULT_URL = "/src/";
+@Component
+public class HttpJSONSOAServerSpring {
 	
-	ApplicationContext ctx;
-	ZooKeeper zk;
+	static ApplicationContext ctx;
+	//ZooKeeper zk;
 	
-    @Resource
+    @Autowired
 	ServiceUtil cl;
 	
 	 public HttpJSONSOAServerSpring() {
-		 ctx=new FileSystemXmlApplicationContext("classpath:applicationContext.xml"); 
-		 zk=(ZooKeeper)ctx.getBean("zookeeper"); 
+		 //ctx=new FileSystemXmlApplicationContext("classpath:applicationContext.xml"); 
+		 //zk=(ZooKeeper)ctx.getBean("zookeeper"); 
 		 //cl=(ServiceUtil) ctx.getBean("ServiceUtil");
+		 //System.out.println(cl);
 	  }
     
     public void run(final String IP,final int port, final String url)throws Exception{
-    	
+    	//System.out.println(cl);
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        //ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null); //the zookeeper connection will be remained until the program closed
+        ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null); //the zookeeper connection will be remained until the program closed
         try{
         	
           //register the temporary key in zookeeper, session will still exists until the session closed
@@ -85,23 +85,6 @@ class HttpJSONSOAServerSpring {
         }
     }
     
-    public static void main(String[] args) throws Exception {
-        String IP = configer.DefaultHttpIP;
-    	int port = configer.DefaultSOAPort;
-        if(args.length > 0)
-        {
-            try{
-            	IP = args[0];
-                port = Integer.parseInt(args[1]);
-            }catch(NumberFormatException e){
-            	IP = configer.DefaultHttpIP;
-                port = configer.DefaultSOAPort;
-            }
-        }
-       
-        String url = "/index.html";
-     
-        new HttpJSONSOAServerSpring().run(IP,port, url);
-    }
+    
 }
 
