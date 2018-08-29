@@ -15,7 +15,15 @@ public class DataNodeClientHandler extends SimpleChannelInboundHandler<ByteBuf> 
      * */  
     public void channelActive(ChannelHandlerContext ctx) {  
     	System.out.println("Client Actived");
-        ctx.write(Unpooled.copiedBuffer("Netty rocks!", CharsetUtil.UTF_8));  
+        //ctx.write(Unpooled.copiedBuffer("Netty rocks!", CharsetUtil.UTF_8));  
+    	
+    	byte[] testing= "testing&".getBytes();
+    	
+    	
+    	
+        ctx.writeAndFlush(Unpooled.copiedBuffer(testing));
+        ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!&", CharsetUtil.UTF_8));
+
     }  
     /** 
      *此方法会在接收到服务器数据后调用  

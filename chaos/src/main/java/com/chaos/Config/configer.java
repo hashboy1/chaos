@@ -5,6 +5,7 @@ public class configer {
 	
       //encode configuration
       public static String encoding = "ISO-8859-1";
+      public static String MessageDelimiter="&";
     
 	
       //redis configration  
@@ -43,6 +44,9 @@ public class configer {
       public static int    FSCBlockSize=1024*1024*2;                 //DefaultBlockSize is 2M.
       public static int    FSCBlockCopied=2;
       public static int    FSCMaxUploadFileSize=1024*1024*100;         //100M
+      
+      
+     
       
       //service package configuration,but it has been abandoned, you can register the service by the class annotation.
       public static String ServicePackage="JSONRPC.Service";    

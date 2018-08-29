@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.data.Stat;
+import org.springframework.stereotype.Service;
 
 import com.chaos.Annotation.ServiceMapping;
 import com.chaos.BaseService.BaseService;
@@ -18,11 +21,17 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+
 public class ServiceUtil {
 	
 	private String IP;  //for services register
 	private int port;   //for services register
-	ZooKeeper zk;
+	ZooKeeper zk;       //reference parameter from constructor or init function
+	
+	public ServiceUtil()
+	{		
+		System.out.println("ServiceUtil Created!!");
+	}
 	
 	public ServiceUtil(String IP,int port)
 	{
@@ -35,24 +44,34 @@ public class ServiceUtil {
 	{
 		this.IP=IP;
 		this.port=port;
-		this.zk=zk;
+		this.zk=zk;	
+	}
+	
+	
+	public void init(String IP,int port)
+	{
+		this.IP=IP;
+		this.port=port;
+		
+	}
+	
+	public void init(String IP,int port,ZooKeeper zk)
+	{
+		this.IP=IP;
+		this.port=port;
+		this.zk=zk;	
 		
 	}
 	
 	//static function for call the ancestor method
-	public static String callBaseService(String className,String parameter1,String parameter2) throws Exception
+	public static String callBaseService(String className,String...parameter) throws Exception
 	{
-		
-		
 		Class a = Class.forName(className);
         BaseService instance1 = (BaseService) a.newInstance(); 
-        String writecontent= instance1.run(parameter1,parameter2);
+        String writecontent= instance1.run(parameter);
         return writecontent;
 	}
 	
-	
-
-    
    	public void RedisServiceRegister() throws Exception
    	{
    		

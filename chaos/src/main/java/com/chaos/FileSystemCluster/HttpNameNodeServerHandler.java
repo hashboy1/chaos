@@ -151,7 +151,7 @@ public class HttpNameNodeServerHandler extends SimpleChannelInboundHandler<FullH
         
         
         /* url区分的入口在这里 */  
-        if (!uri.startsWith("/feed"))  {  
+        if (!uri.startsWith("/upload"))  {  
             sendError(ctx, HttpResponseStatus.BAD_REQUEST);  
             return;  
         } else {  
@@ -193,8 +193,11 @@ public class HttpNameNodeServerHandler extends SimpleChannelInboundHandler<FullH
             	{
             		System.out.println("unsupport type:"+interfaceHttpData.getHttpDataType());
                 	System.out.println("unsupport data:"+interfaceHttpData.toString());
-                	successflag=false;
-            	}
+                	successflag=false;   	
+                	sendError(ctx, HttpResponseStatus.UNSUPPORTED_MEDIA_TYPE);  
+                    return;  
+                	
+               }
 
             
            } 

@@ -7,7 +7,7 @@ public abstract class BaseService {
 	
 	//protected Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public  abstract String run(String Parameter1,String Parameter2);   //key function for Service
+	public  abstract String run(String...Parameter);   //key function for Service
 	
 
 }

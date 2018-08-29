@@ -105,7 +105,7 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
     		   }
     	   return; 
        }
-        
+      
        //analysis the HttpMethod 
        if(request.method() != HttpMethod.GET )
        {
@@ -141,23 +141,20 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
         String parameter[] =new String[2];
         int i =0;
         for (Map.Entry<String, String> entry : ParameterInt.entrySet()) 
-        {
-        	if (i<2) //only get two parameters,the other will be ignored
-        	{    
+        {  
         	parameter[i] = entry.getValue();
         	System.out.println("parameter"+i+":"+parameter[i] );
         	i++;
-        	}
+        	
         }
         
         
      try 
      {
        
-    	// get the classname by uri from redis
+    	
     	//Class Constructed,maybe i need create one class to implement its
-        String writecontent = ServiceUtil.callBaseService(uri.substring(1), parameter[0], parameter[1]);
-               
+        String writecontent = ServiceUtil.callBaseService(uri.substring(1), parameter);            
         JsonObject obj = new JsonObject();
         obj.addProperty("result", 0);
         obj.addProperty("content", writecontent);

@@ -12,8 +12,16 @@ import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
+import javax.annotation.Resource;
 
 import org.apache.zookeeper.ZooKeeper;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import com.chaos.Config.configer;
 import com.chaos.Util.ServiceUtil;
 
@@ -25,18 +33,31 @@ import com.chaos.Util.ServiceUtil;
  * 
  * 
  */
-
-class HttpJSONSOAServer {
+@Service
+class HttpJSONSOAServerSpring {
     //private static final String DEFAULT_URL = "/src/";
+	
+	ApplicationContext ctx;
+	ZooKeeper zk;
+	
+    @Resource
+	ServiceUtil cl;
+	
+	 public HttpJSONSOAServerSpring() {
+		 ctx=new FileSystemXmlApplicationContext("classpath:applicationContext.xml"); 
+		 zk=(ZooKeeper)ctx.getBean("zookeeper"); 
+		 //cl=(ServiceUtil) ctx.getBean("ServiceUtil");
+	  }
     
     public void run(final String IP,final int port, final String url)throws Exception{
+    	
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null); //the zookeeper connection will be remained until the program closed
+        //ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null); //the zookeeper connection will be remained until the program closed
         try{
         	
           //register the temporary key in zookeeper, session will still exists until the session closed
-            ServiceUtil cl = new ServiceUtil(IP,port,zk);
+            cl.init(IP,port,zk);
             cl.ZooKeeperServiceRegister();
 	
     	    
@@ -80,7 +101,7 @@ class HttpJSONSOAServer {
        
         String url = "/index.html";
      
-        new HttpJSONSOAServer().run(IP,port, url);
+        new HttpJSONSOAServerSpring().run(IP,port, url);
     }
 }
 

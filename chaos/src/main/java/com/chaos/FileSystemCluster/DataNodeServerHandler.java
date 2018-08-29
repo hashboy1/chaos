@@ -45,7 +45,7 @@ import io.netty.handler.codec.http.multipart.FileUpload;
 import io.netty.util.CharsetUtil;
 
 
-public class DataNodeServerHandler extends SimpleChannelInboundHandler<FullHttpRequest>{
+public class DataNodeServerHandler extends SimpleChannelInboundHandler{
 
     
     private final Map<String, Object> handlerMap;
@@ -73,7 +73,7 @@ public class DataNodeServerHandler extends SimpleChannelInboundHandler<FullHttpR
 			System.out.println("Client Active");
 			
 			super.channelActive(ctx);
-			System.out.println("ChannelHandlerContext:"+ctx.toString());
+			//System.out.println("ChannelHandlerContext:"+ctx.toString());
 			
 	}
     
@@ -86,8 +86,8 @@ public class DataNodeServerHandler extends SimpleChannelInboundHandler<FullHttpR
 	@Override
 	public void channelRead(ChannelHandlerContext arg0, Object arg1) throws Exception {
 	
-			System.out.println("Client Data Send");
-
+			
+		    //System.out.println("Client send message");
 			ByteBuf buf = (ByteBuf) arg1;
 			byte[] bytes = new byte[buf.readableBytes()];
 			buf.readBytes(bytes);
@@ -97,10 +97,14 @@ public class DataNodeServerHandler extends SimpleChannelInboundHandler<FullHttpR
 
 
 	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest msg) throws Exception {
+	protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
 		// TODO Auto-generated method stub
 		
+		
 	}
+
+
+
 
     
 }
