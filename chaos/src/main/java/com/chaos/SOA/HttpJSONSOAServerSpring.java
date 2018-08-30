@@ -35,31 +35,25 @@ import com.chaos.Util.ServiceUtil;
  */
 @Component
 public class HttpJSONSOAServerSpring {
-	
-	static ApplicationContext ctx;
-	//ZooKeeper zk;
-	
+
     @Autowired
-	ServiceUtil cl;
-	
+	private ServiceUtil cl;
+
+
 	 public HttpJSONSOAServerSpring() {
-		 //ctx=new FileSystemXmlApplicationContext("classpath:applicationContext.xml"); 
-		 //zk=(ZooKeeper)ctx.getBean("zookeeper"); 
-		 //cl=(ServiceUtil) ctx.getBean("ServiceUtil");
-		 //System.out.println(cl);
 	  }
     
-    public void run(final String IP,final int port, final String url)throws Exception{
+    public void run(final String IP,final int port, final String url,final ZooKeeper zk)throws Exception{
     	//System.out.println(cl);
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null); //the zookeeper connection will be remained until the program closed
+        //ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null); //the zookeeper connection will be remained until the program closed
         try{
         	
           //register the temporary key in zookeeper, session will still exists until the session closed
             cl.init(IP,port,zk);
             cl.ZooKeeperServiceRegister();
-	
+    
     	    
     	    //web service startup
             ServerBootstrap b = new ServerBootstrap();
@@ -71,7 +65,7 @@ public class HttpJSONSOAServerSpring {
                     ch.pipeline().addLast("http-aggregator", new HttpObjectAggregator(65536));
                     ch.pipeline().addLast("http-encoder", new HttpResponseEncoder());
                     ch.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
-                    ch.pipeline().addLast("fileServerHandler", new HttpJSONSOAServerHandler(url,cl));
+                    ch.pipeline().addLast("fileServerHandler", new HttpJSONSOAServerHandlerSpring(url,cl));
                 }
             });              
             ChannelFuture f = b.bind(IP, port).sync();

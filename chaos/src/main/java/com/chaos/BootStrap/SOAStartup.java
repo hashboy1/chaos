@@ -1,5 +1,7 @@
-package BootStrap;
+package com.chaos.BootStrap;
 
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -24,11 +26,12 @@ public class SOAStartup {
         }
        
         String url = "/index.html";
-        
         HttpJSONSOAServerSpring hs =(HttpJSONSOAServerSpring) ctx.getBean("HttpJSONSOAServerSpring");
-        hs.run(IP,port, url);
-        
-        //new HttpJSONSOAServerSpring().run(IP,port, url);
+        //ZooKeeper zk=(ZooKeeper) ctx.getBean("zookeeper");
+        //Watcher wt=new Watcher();
+        ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null);
+        hs.run(IP,port, url,zk);
+
     }
 
 }

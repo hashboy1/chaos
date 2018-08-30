@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 import javax.activation.MimetypesFileTypeMap;
 import javax.tools.JavaFileObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.chaos.Util.HttpUtil;
 import com.chaos.Util.ServiceUtil;
 import com.google.gson.JsonObject;
@@ -31,14 +34,16 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
 import io.netty.util.CharsetUtil;
 
-
-public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHttpRequest>{
+@Service
+public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<FullHttpRequest>{
 
     private final String url;
+    @Autowired
     private ServiceUtil su;    //for services register and list
-
     
-    public HttpJSONSOAServerHandler(String url,ServiceUtil su) {
+    
+    
+    public HttpJSONSOAServerHandlerSpring(String url,ServiceUtil su) {
         this.url = url;
         this.su=su;
     }

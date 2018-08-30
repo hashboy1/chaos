@@ -14,8 +14,12 @@
 	
 
 	<context:component-scan base-package="com.chaos" />
-	
-	<bean id="zookeeper" class="org.apache.zookeeper.ZooKeeper" scope="singleton">
+
+    <bean id="HttpJSONSOAServerSpring" class="com.chaos.SOA.HttpJSONSOAServerSpring" scope="singleton"/>  
+    <bean id="EmployeeController" class="com.chaos.test.EmployeeController" scope="singleton"/> 
+    <!--   <bean id="ServiceUtil" class="com.chaos.Util.ServiceUtil" scope="singleton"/>  --> 
+    <!-- 
+	<bean id="zookeeper" class="org.apache.zookeeper.ZooKeeper" scope="singleton" >
 	      <constructor-arg index="0"  type="String" value="192.168.0.160:2181" />
 	      <constructor-arg index="1"  type="int">
 	        <value>
@@ -26,12 +30,41 @@
 	          <null />   
 	      </constructor-arg>    
     </bean>
+    -->
     
-    <bean id="HttpJSONSOAServerSpring" class="com.chaos.SOA.HttpJSONSOAServerSpring" scope="singleton"/>
     
-    <!--   <bean id="ServiceUtil" class="com.chaos.Util.ServiceUtil" scope="singleton"/>  -->
+    <bean id="BaseService" class="com.chaos.BaseService.BaseService" scope="singleton"/> 
   
-	
+	<!-- 配置数据源 -->
+     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
+              <property name="driverClassName"> 
+                     <value>com.mysql.jdbc.Driver</value> 
+              </property> 
+              <property name="url"> 
+                     <value>jdbc:mysql://192.168.0.249:3306/testdb?useUnicode=true&amp;characterEncoding=utf-8</value> 
+              </property> 
+              <property name="username"> 
+                     <value>vrkb</value> 
+              </property> 
+              <property name="password"> 
+                     <value>3dms</value> 
+              </property>      
+       </bean> 
+
+	<!-- 自动扫描了所有的XxxxMapper.xml对应的mapper接口文件，这样就不用一个一个手动配置Mpper的映射了，只要Mapper接口类和Mapper映射文件对应起来就可以了。 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.chaos.dao" />
+	</bean>
+
+    <!-- 配置Mybatis的文件 ，mapperLocations配置**Mapper.xml文件位置，configLocation配置mybatis-config文件位置-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath*:mybatis/mapper/*.xml"/>  
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<!-- <property name="typeAliasesPackage" value="com.tiantian.ckeditor.model" 
+			/> -->
+	</bean>
 	
 	
 </beans>
