@@ -14,8 +14,10 @@ import javax.tools.JavaFileObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chaos.Context.SpringContextHolder;
 import com.chaos.Util.HttpUtil;
 import com.chaos.Util.ServiceUtil;
+import com.chaos.Util.testUtil;
 import com.google.gson.JsonObject;
 
 
@@ -46,6 +48,8 @@ public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<
     public HttpJSONSOAServerHandlerSpring(String url,ServiceUtil su) {
         this.url = url;
         this.su=su;
+        testUtil hs =(testUtil)SpringContextHolder.getApplicationContext().getBean("testUtil");
+        
     }
     
     @Override

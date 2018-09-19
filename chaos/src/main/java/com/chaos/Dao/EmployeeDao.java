@@ -1,20 +1,20 @@
 package com.chaos.Dao;
 
+import org.apache.ibatis.session.SqlSession;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
+import com.chaos.Context.SpringContextHolder;
 import com.chaos.Domain.Employee;
+import com.chaos.SOA.HttpJSONSOAServerSpring;
 
-/**
- * 功能概要：User的DAO类
-
- */
-public interface EmployeeDao {
-
-	 Employee selectEmployeeByNo(String EmployeeNo);
-	
-	  
-
+public class EmployeeDao {
+	 private SqlSession sqlSession;
+	 public EmployeeDao()
+	 {
+		 sqlSession =(SqlSession)SpringContextHolder.getApplicationContext().getBean("sqlSession");
+	 } 
+	 public Employee selectEmployeeByNo(String EmployeeNo)
+	 {
+		 return sqlSession.selectOne("selectEmployeeByNo",EmployeeNo);
+	 }
+	 
 }
