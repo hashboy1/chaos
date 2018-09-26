@@ -1,19 +1,10 @@
 package com.chaos.SOA;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-import javax.activation.MimetypesFileTypeMap;
-import javax.tools.JavaFileObject;
 
+import java.util.Map;
+import javax.activation.MimetypesFileTypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.chaos.Context.SpringContextHolder;
 import com.chaos.Util.HttpUtil;
 import com.chaos.Util.ServiceUtil;

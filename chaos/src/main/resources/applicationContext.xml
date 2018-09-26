@@ -2,29 +2,36 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
 	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
-    xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
-		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd"
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
+		http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd"
+
 	default-lazy-init="true">
 	 <!--
 	<context:spring-configured />
     <context:load-time-weaver  weaver-class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver" aspectj-weaving="on"/>
       -->
+      
+      <!-- 开启aop注解方式,默认为false -->  
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+      
 	<context:component-scan base-package="com.chaos" />
 
 
     <bean id="HttpJSONSOAServerSpring" class="com.chaos.SOA.HttpJSONSOAServerSpring" scope="singleton"/>  
     <bean id="testUtil" class="com.chaos.Util.testUtil" scope="singleton"/>  
-     <!--
     <bean id="EmployeeController" class="com.chaos.test.EmployeeController" scope="singleton"/> 
+     <!--
+    
     <bean id="ServiceUtil" class="com.chaos.Util.ServiceUtil" scope="singleton"/>  
-    --> 
-    <!-- 
 	<bean id="zookeeper" class="org.apache.zookeeper.ZooKeeper" scope="singleton" >
 	      <constructor-arg index="0"  type="String" value="192.168.0.160:2181" />
 	      <constructor-arg index="1"  type="int">
@@ -79,6 +86,7 @@
       <constructor-arg index="0" ref="sqlSessionFactory" />
      </bean>
 	
+
 	
 	
 </beans>

@@ -3,9 +3,6 @@ package com.chaos.Util;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
 
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooKeeper;
@@ -15,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.chaos.Annotation.ServiceMapping;
 import com.chaos.BaseService.BaseService;
-import com.chaos.Config.configer;
+import com.chaos.Config.configerContextHolder;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -78,17 +75,19 @@ public class ServiceUtil {
    		 JedisPool pool;   
    		 Jedis jedis;
    		 JedisPoolConfig config;
+   		 String RedisIp=configerContextHolder.getProp("chaos.Redis.RedisIp");
+   		 int RedisPort=Integer.parseInt(configerContextHolder.getProp("chaos.Redis.RedisPort"));
+   		 int RedisKeyExpiredSeconds=Integer.parseInt(configerContextHolder.getProp("chaos.Redis.RedisKeyExpiredSeconds"));
+   		 
    		 config= new JedisPoolConfig();
-   		 pool = new JedisPool(configer.RedisIp,configer.RedisPort);    
+   		 pool = new JedisPool(RedisIp,RedisPort);    
    		 jedis = pool.getResource();
-   		 
-   		 
+
    	     List<Class<?>> Lc=new ClassListUtil().getAllClassess("","");
    	     for (Class a :  Lc)
    	     {
-   	
-   	    	
-   	    	Annotation cc=a.getAnnotation(ServiceMapping.class);
+ 	
+   	    	 Annotation cc=a.getAnnotation(ServiceMapping.class);
 
    	    	 ServiceMapping sm = (ServiceMapping)a.getAnnotation(ServiceMapping.class); 
    	    	 	 
@@ -97,7 +96,7 @@ public class ServiceUtil {
    	    	 
    	    	 String url = this.IP+":"+this.port+"/"+a.getName();
    	    	 String key = sm.Value();
-   	    	 jedis.setex(key,configer.RedisKeyExpiredSeconds,url); //key will be expired over 120s
+   	    	 jedis.setex(key,RedisKeyExpiredSeconds,url); //key will be expired over 120s
    	    	 }
    	     }
    		
@@ -115,16 +114,18 @@ public class ServiceUtil {
    	     *    
    	     */
    		
-   		
+   		String ZooKeeperSOABaseKey=configerContextHolder.getProp("chaos.Zookeeper.ZooKeeperSOABaseKey");
+   		String encoding=configerContextHolder.getProp("chaos.encoding");
 
    		//create the root path for SOAServices
-	      Stat exists = zk.exists(configer.ZooKeeperSOABaseKey, false);   
+	      Stat exists = zk.exists(ZooKeeperSOABaseKey, false);   
 	      if (exists == null) {           //if it can't found the root node, it will create the root node and it will be persistent.
-       	    System.out.println("Create Base Path:"+configer.ZooKeeperSOABaseKey);
-            zk.create(configer.ZooKeeperSOABaseKey, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);  
+       	    System.out.println("Create Base Path:"+ZooKeeperSOABaseKey);
+            zk.create(ZooKeeperSOABaseKey, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);  
            }  	
    		 
    	     List<Class<?>> Lc=new ClassListUtil().getAllClassess("","");
+   	     System.out.println("Class List:"+Lc.toString());
    	     for (Class a :  Lc)
    	     {
    	
@@ -134,42 +135,48 @@ public class ServiceUtil {
    	    	 if (sm!=null)
    	    	 {
    	    	 String ServiceName = sm.Value();   //Service Name
-   	    	 String zServicenode = configer.ZooKeeperSOABaseKey+"/"+ServiceName;
+   	    	 String zServicenode = ZooKeeperSOABaseKey+"/"+ServiceName;
    	    	 String url = this.IP+":"+this.port+"/"+a.getName();
    	    	 String hosturl=this.IP+":"+this.port;
    	    	 String hosturlkey=zServicenode+"/"+hosturl;
    	    	 
    	    	 //Create the PERSISTENT service Node, if not exists
    	    	 exists = zk.exists(zServicenode, false);  
-	   	     if (exists == null)            
+	   	     if (exists == null)  
+	   	     {
+	   	     System.out.println("Create Service Path:"+zServicenode);
 	   	     zk.create(zServicenode, null, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);         
-	   	     
+	   	     }
 	   	     //create the EPHEMERAL host node,if not exists
 	   	     exists = zk.exists(hosturlkey, false); 
-	   	     if (exists == null)            
-		   	 zk.create(hosturlkey, url.getBytes(configer.encoding), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);         
-   	    	 
-   	    	 }
+	   	     if (exists == null)     
+	   	     {
+	   	      System.out.println("Create hosturl key:"+hosturlkey);
+		   	 zk.create(hosturlkey, url.getBytes(encoding), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);          
+	   	     }
+	   	     }
    	     }
    		
    	}
    	
    	
    	public HashMap<String,Object> ZooKeeperListService() throws Exception{
+   		String ZooKeeperSOABaseKey=configerContextHolder.getProp("chaos.Zookeeper.ZooKeeperSOABaseKey");
+   		String encoding=configerContextHolder.getProp("chaos.encoding");
    		
-   	    Stat exists = zk.exists(configer.ZooKeeperSOABaseKey, false);   
+   	    Stat exists = zk.exists(ZooKeeperSOABaseKey, false);   
 	      if (exists == null) {           //if it can't found the root node, it will create the root node and it will be persistent.
-     	    System.out.println("it can't find the Base Path:"+configer.ZooKeeperSOABaseKey);
+     	    System.out.println("it can't find the Base Path:"+ZooKeeperSOABaseKey);
             return null;
          }  
 	            
 	      HashMap<String,Object> rv=new HashMap<>();
 	      
-	      List<String> ServiceNodeList= zk.getChildren(configer.ZooKeeperSOABaseKey, false);
+	      List<String> ServiceNodeList= zk.getChildren(ZooKeeperSOABaseKey, false);
 	      for (String ServiceNodeName:ServiceNodeList)
 	      {
 	    	  
-	    	  String ServiceNodeFullName= configer.ZooKeeperSOABaseKey+"/"+ServiceNodeName;
+	    	  String ServiceNodeFullName= ZooKeeperSOABaseKey+"/"+ServiceNodeName;
 	    	  System.out.println("Service Node Name:"+ServiceNodeFullName);
 	    	 
 	    	  List<String> HostNodeList= zk.getChildren(ServiceNodeFullName, false);
@@ -183,7 +190,7 @@ public class ServiceUtil {
 		    	  String nodeData = null;
 		    	  if (nodeDatabyte !=null && nodeDatabyte.length>0)
 		    	  {
-		    	  nodeData=new String(nodeDatabyte,configer.encoding);
+		    	  nodeData=new String(nodeDatabyte,encoding);
 		    	  System.out.println("child node data:"+nodeData);
 		    	  }		    	  
 		    	  HostNodeDataList[i]=nodeData;
@@ -200,8 +207,9 @@ public class ServiceUtil {
    	
    	
 public String ZooKeeperGetServiceURL(String ServiceNodeName) throws Exception{
-   		
-              String ServiceNodeFullName= configer.ZooKeeperSOABaseKey+"/"+ServiceNodeName;
+	          String ZooKeeperSOABaseKey=configerContextHolder.getProp("chaos.Zookeeper.ZooKeeperSOABaseKey");
+	      	  String encoding=configerContextHolder.getProp("chaos.encoding");
+              String ServiceNodeFullName= ZooKeeperSOABaseKey+"/"+ServiceNodeName;
               Stat exists = zk.exists(ServiceNodeFullName, false); 
               if (exists ==null) 
               {   
@@ -225,7 +233,7 @@ public String ZooKeeperGetServiceURL(String ServiceNodeName) throws Exception{
 		    	  String nodeData = null;
 		    	  if (nodeDatabyte !=null && nodeDatabyte.length>0)
 		    	  {
-		    	  nodeData=new String(nodeDatabyte,configer.encoding);
+		    	  nodeData=new String(nodeDatabyte,encoding);
 		    	  System.out.println("child node data:"+nodeData);
 		    	  }		    	  
 		    	  HostNodeDataList[i]=nodeData;
@@ -247,13 +255,13 @@ public String ZooKeeperGetServiceURL(String ServiceNodeName) throws Exception{
 
 	public static void main(String[] args) throws Exception {
 		
+		/*
 		ZooKeeper zk =new ZooKeeper(configer.ZooKeeperIp+":"+configer.ZooKeeperPort,2000,null);
 		ServiceUtil cl = new ServiceUtil(configer.DefaultHttpIP,configer.DefaultSOAPort,zk);
 		cl.ZooKeeperServiceRegister();
 		cl.ZooKeeperListService();
-
-	  Thread.sleep(100000);  
-		
+         Thread.sleep(100000);  
+		*/
 		
 		
 		
