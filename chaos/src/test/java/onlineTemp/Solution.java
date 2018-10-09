@@ -1,31 +1,15 @@
-package com.chaos.test;
-
+package onlineTemp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
+import java.util.Collections;
 
-public class testString {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		
-		/*
-		Random rand =new Random();
-		
-	   while(true)
-		System.out.println(rand.nextInt(3));
-     */
-		Integer a = 128;
-		Integer b = 128;
-		System.out.println(b == a);
-}
-	
-	
+import com.mysql.fabric.xmlrpc.base.Array;
+public class Solution {
     public ArrayList<String> Permutation(String str) {
         ArrayList<String> aa=new ArrayList<String>();
         char[] ar = str.toCharArray();
         if (!str.equals(""))permute(aa,ar,0);    
+        Collections.sort(aa);
         return aa;
     }
   
@@ -33,8 +17,9 @@ public class testString {
 public static void permute(ArrayList<String> returnValue,char[] array,int start){  
 	if(start==array.length){  // 输出
 			System.out.println(Arrays.toString(array));
+			//Arrays.sort(array);
             String s = new String(array);
-            returnValue.add(s);
+           if (!arrayListTraversal(returnValue,s))  returnValue.add(s);
 		}
 	else
 	for(int i=start;i<array.length;++i){
@@ -49,6 +34,24 @@ private static void swap(char[] array,int s,int i){
 	array[s]=array[i];
 	array[i]=t;
 }
-	
+    
+    
+    public static boolean arrayListTraversal(ArrayList<String> lists,String invalue)
+    {
+         for (String list : lists) {
+            if (list.equals(invalue)) return true;
+        }
+        return false;
+    }
+    
+    public static void main(String[] args) {
+    
+    	Solution sl = new Solution();
+    	
+       System.out.println(sl.Permutation("abcd").toString());
+    }
+    
+    
+
 
 }

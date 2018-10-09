@@ -1,25 +1,25 @@
-package com.chaos.SOAService;
-
-import javax.annotation.Resource;
+package com.chaos.SOAServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
 import com.chaos.Annotation.ServiceMapping;
 import com.chaos.BaseService.BaseService;
 import com.chaos.Dao.EmployeeDao;
+import com.chaos.Dao.EmployeeDao2;
 import com.chaos.Domain.Employee;
 
-@Configurable("PrintService2")
-@ServiceMapping(Value="printService2",Method =0)   //Service Register
-public class PrintService2 extends BaseService {   //the service class must belong to one java package  
+
+@ServiceMapping(Value="printService4",Method =0)   //Service Register
+@Service
+public class printService4 extends BaseService {
+
 	@Autowired
-	private EmployeeDao employeeDao;
+	private EmployeeDao2 employeeDao;
+	
 	@Override
 	public String run(String ... Parameter) {	
-		employeeDao=new EmployeeDao();
-		System.out.println("welcome to access print service2");
+		System.out.println("welcome to access print service4");
 		String result="";
 		for (int i=0;i<Parameter.length;i++)
 		{   
@@ -40,7 +40,7 @@ public class PrintService2 extends BaseService {   //the service class must belo
 		}
 		}
 		
-		return "print Service2:" + result;
+		return "print Service4:" + result;
        	
 	}
 

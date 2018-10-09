@@ -1,4 +1,4 @@
-package com.chaos.test;
+package onlineTemp;
 import java.util.Scanner;
 public class Main {
    

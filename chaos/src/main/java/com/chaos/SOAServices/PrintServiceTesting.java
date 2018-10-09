@@ -1,4 +1,6 @@
-package com.chaos.SOAService;
+package com.chaos.SOAServices;
+
+import org.springframework.stereotype.Service;
 
 import com.chaos.Annotation.ServiceMapping;
 import com.chaos.BaseService.BaseService;
@@ -6,7 +8,17 @@ import com.chaos.BaseService.BaseService;
 
 
 @ServiceMapping(Value="PrintServiceTesting",Method =0)
+@Service
 public class PrintServiceTesting extends BaseService {
+	
+	PrintServiceTesting()
+	{
+		
+		System.out.println("welcome to access PrintServiceTesting service");
+		
+	}
+	
+	
 
 	@Override
 	public String run(String ... Parameter) {
@@ -18,7 +30,7 @@ public class PrintServiceTesting extends BaseService {
 			result+=Parameter[i];
 		}
 		
-		return "print Service2:" + result;
+		return "print Service Testing:" + result;
 		
 	}
 

@@ -2,6 +2,7 @@ package com.chaos.Dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.chaos.Context.SpringContextHolder;
 import com.chaos.Domain.Employee;

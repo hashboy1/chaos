@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.chaos.Annotation.ServiceMapping;
 import com.chaos.BaseService.BaseService;
 import com.chaos.Config.configerContextHolder;
+import com.chaos.Context.SpringContextHolder;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -61,13 +62,24 @@ public class ServiceUtil {
 	}
 	
 	//static function for call the ancestor method
-	public static String callBaseService(String className,String...parameter) throws Exception
+	public static String callBaseServiceOld(String className,String...parameter) throws Exception
 	{
 		Class a = Class.forName(className);
         BaseService instance1 = (BaseService) a.newInstance(); 
         String writecontent= instance1.run(parameter);
         return writecontent;
 	}
+	
+	
+	//static function for call the ancestor method by spring
+	public static String callBaseService(String className,String...parameter) throws Exception
+	{
+		BaseService instance1 = (BaseService) SpringContextHolder.getApplicationContext().getBean(Class.forName(className));
+        String writecontent= instance1.run(parameter);
+        return writecontent;
+	}
+	
+	
 	
    	public void RedisServiceRegister() throws Exception
    	{
