@@ -24,7 +24,6 @@ public class EmployeeService{
 	private EmployeeDao2 employeeDao;
 	
 
-	
 	EmployeeService() {
 		System.out.println("employee service");
 	}

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.chaos.Config.configer;
 import com.chaos.SOA.HttpJSONSOAServerSpring;
-import com.chaos.SOAService.PrintServiceTesting;
 
 @Component
 public class EmployeeController {
@@ -17,7 +16,7 @@ public class EmployeeController {
 	EmployeeService es;
 	
 	@Autowired
-	PrintServiceTesting ps;
+	PrintServiceTest ps;
 	
 	public String run(String  EmployeeNo)
 	{	

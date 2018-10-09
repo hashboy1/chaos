@@ -1,4 +1,4 @@
-package com.chaos.SOAServices;
+package com.chaos.test;
 
 import org.springframework.stereotype.Service;
 
@@ -7,10 +7,9 @@ import com.chaos.BaseService.BaseService;
 
 
 @Service
-@ServiceMapping(Value="PrintServiceTesting",Method =0)
-public class PrintServiceTesting extends BaseService {
+public class PrintServiceTest extends BaseService {
 	
-	PrintServiceTesting()
+	PrintServiceTest()
 	{
 		
 		System.out.println("welcome to access PrintServiceTesting service");
@@ -22,6 +21,7 @@ public class PrintServiceTesting extends BaseService {
 	@Override
 	public String run(String ... Parameter) {
 		
+		System.out.println("welcome to access print service");
 		String result="";
 		for (int i=0;i<Parameter.length;i++)
 		{

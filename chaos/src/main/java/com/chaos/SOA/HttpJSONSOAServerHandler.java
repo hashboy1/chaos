@@ -154,7 +154,7 @@ public class HttpJSONSOAServerHandler extends SimpleChannelInboundHandler<FullHt
        
     	
     	//Class Constructed,maybe i need create one class to implement its
-        String writecontent = ServiceUtil.callBaseService(uri.substring(1), parameter);            
+        String writecontent = ServiceUtil.callBaseServiceReflect(uri.substring(1), parameter);            
         JsonObject obj = new JsonObject();
         obj.addProperty("result", 0);
         obj.addProperty("content", writecontent);

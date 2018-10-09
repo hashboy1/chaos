@@ -1,4 +1,6 @@
 package com.chaos.BootStrap;
+import java.io.IOException;
+
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
@@ -9,7 +11,7 @@ import com.chaos.SOA.HttpJSONSOAServerSpring;
 
 public class SOAStartup {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception  {
        
 		//read the chaos configuration file
 		configerContextHolder cch=new configerContextHolder();
@@ -39,8 +41,9 @@ public class SOAStartup {
         }
        
         String url = "/index.html";
+      
         ZooKeeper zk =new ZooKeeper(ZooKeeperIp+":"+ZooKeeperPort,2000,new Watcher()
-        //just the temporary solution for null point exception on zookeeper watcher
+        //just the temporary solution for null point exception on the zookeeper watcher
         {
 			@Override
 			public void process(WatchedEvent event) {
@@ -51,6 +54,8 @@ public class SOAStartup {
   
        //service portal
         hs.run(IP,port, url,zk);
+        
+       
 
     }
 

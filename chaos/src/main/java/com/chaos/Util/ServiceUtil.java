@@ -8,6 +8,7 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.data.Stat;
+import org.springframework.beans.BeansException;
 import org.springframework.stereotype.Service;
 
 import com.chaos.Annotation.ServiceMapping;
@@ -62,7 +63,7 @@ public class ServiceUtil {
 	}
 	
 	//static function for call the ancestor method
-	public static String callBaseServiceOld(String className,String...parameter) throws Exception
+	public static String callBaseServiceReflect(String className,String...parameter) throws Exception
 	{
 		Class a = Class.forName(className);
         BaseService instance1 = (BaseService) a.newInstance(); 
@@ -72,11 +73,19 @@ public class ServiceUtil {
 	
 	
 	//static function for call the ancestor method by spring
-	public static String callBaseService(String className,String...parameter) throws Exception
-	{
+	public static String callBaseServiceSpring(String className,String...parameter) throws BeansException, ClassNotFoundException 
+	{   
+		try 
+		{
 		BaseService instance1 = (BaseService) SpringContextHolder.getApplicationContext().getBean(Class.forName(className));
         String writecontent= instance1.run(parameter);
         return writecontent;
+		}
+        catch (ClassNotFoundException ex)
+        {
+        	return "unknown service in this server,please contact with the system administrator!";		
+        }
+        
 	}
 	
 	
