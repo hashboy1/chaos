@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.apache.zookeeper.ZooKeeper;
 
 import com.chaos.Config.configer;
@@ -22,6 +23,7 @@ public class fileUtil {
 	private String IP;  //for services register
 	private int port;   //for services register
 	ZooKeeper zk;
+	private final Logger log = Logger.getLogger(getClass());
 	
 	public fileUtil(String IP,int port)
 	{
@@ -75,7 +77,6 @@ public class fileUtil {
    			DataOutputStream out=new DataOutputStream(fos);
    			out.write(blockData,0,len);
    			out.close();
-   			//System.out.println(blockFileName);
    			rv.put(blockID, blockFileName);
    	
    		}
@@ -89,12 +90,12 @@ public class fileUtil {
    	{       
    		FileOutputStream fos = new FileOutputStream(TargetFileName,false);
 		DataOutputStream out=new DataOutputStream(fos);
-   		System.out.println("------------------------------------");
+   		log.warn("------------------------------------");
    		
    		for (Entry<String,String> block:BlockMap.entrySet())
    		{   	
    			File file=new File(block.getValue());
-   			//System.out.println(block.getValue());
+   			
    			FileInputStream in = new FileInputStream(file);  
    	   		byte[] fileContent=new byte[(int) file.length()];
    			in.read(fileContent);

@@ -11,6 +11,8 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
+
+import org.apache.log4j.Logger;
 import org.apache.zookeeper.ZooKeeper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,7 @@ public class HttpJSONSOAServerSpring {
 
     @Autowired
 	private ServiceUtil cl;
-
+    private final Logger log = Logger.getLogger(getClass());
 
 	 public HttpJSONSOAServerSpring() {
 	  }
@@ -53,11 +55,12 @@ public class HttpJSONSOAServerSpring {
                     ch.pipeline().addLast("http-encoder", new HttpResponseEncoder());   //encoder
                     ch.pipeline().addLast("http-aggregator", new HttpObjectAggregator(65536));   
                     ch.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
-                    ch.pipeline().addLast("fileServerHandler", new HttpJSONSOAServerHandlerSpring(url,cl));
+                    ch.pipeline().addLast("fileServerHandler", new HttpJSONSOAServerHandlerSpring(IP,port,url,cl));
                 }
             });              
             ChannelFuture f = b.bind(IP, port).sync();
-            System.out.println("HTTP 文件服务器启动, 地址是： " + "http://"+ IP +":" + port + url);
+            //System.out.println("HTTP 文件服务器启动, 地址是： " + "http://"+ IP +":" + port + url);
+            log.warn("HTTP 文件服务器启动, 地址是： " + "http://"+ IP +":" + port + url);
             f.channel().closeFuture().sync();
         }finally{
         	zk.close();

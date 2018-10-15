@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+
 import com.chaos.Config.configer;
 
 
@@ -11,6 +14,7 @@ import com.chaos.Config.configer;
 public class hashmapUtil {
 	
     private  Map<String, Object> hm = new HashMap<>();
+    private final Logger log = Logger.getLogger(getClass());
 	
 	public hashmapUtil() throws Exception   //constructor
 	{
@@ -21,7 +25,7 @@ public class hashmapUtil {
 	{
 		if (path.length()== 0)
 		{
-			System.out.println("empty path");
+			log.warn("empty path");
 			return;
 		}
 		 File f=new File(path);
@@ -50,7 +54,7 @@ public class hashmapUtil {
 	                }
 	            }
 	            else{
-	                System.out.println(f);
+	            	log.warn(f);
 	            }
 	        }
 		

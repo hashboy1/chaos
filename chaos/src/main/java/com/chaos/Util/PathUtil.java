@@ -1,6 +1,10 @@
 package com.chaos.Util;
 
+import org.apache.log4j.Logger;
+
 public class PathUtil {
+	
+	 private final Logger log = Logger.getLogger(getClass());
 	
 	public String getCurrentPath(){  
 	       //取得根目录路径  

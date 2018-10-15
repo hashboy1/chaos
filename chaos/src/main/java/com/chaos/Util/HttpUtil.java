@@ -12,13 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 public class HttpUtil {
 	
 	/**
 	 * HTTP parse
 	 */
 	    private FullHttpRequest fullReq;
-
+	    private final Logger log = Logger.getLogger(getClass());
 	    /**
 	     * 构造一个解析器
 	     * @param req

@@ -1,9 +1,7 @@
 package com.chaos.Util;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -11,20 +9,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.ZooDefs.Ids;
-import org.apache.zookeeper.ZooKeeper;
-import org.apache.zookeeper.data.Stat;
-
-import com.chaos.Annotation.ServiceMapping;
-import com.chaos.Config.configer;
+import org.apache.log4j.Logger;
 import com.chaos.Config.configerContextHolder;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import com.chaos.SOAService.*;
 
 
 
@@ -41,18 +28,18 @@ public class ClassListUtil {
 	
 	
 	
+	private final Logger log = Logger.getLogger(getClass());
 	
-	
-	public List<Class<?>> getAllClassess(String Path,String PackageName) throws Exception
+	public List<Class<?>>  getAllClassess(String Path,String PackageName) throws Exception
 	{
         String BasePackge=configerContextHolder.getProp("chaos.FCS.BasePackage");
-        System.out.println("Basepackage:"+BasePackge);
+        log.warn("Basepackage:"+BasePackge);
 		List<Class<?>> FSclasses=getAllFSClassess(Path,PackageName);
-		List<Class<?>> Jarclasses=getAllJarClassess(BasePackge);
+		//List<Class<?>> Jarclasses=getAllJarClassess(BasePackge);
 		
 		List<Class<?>> classes=new ArrayList<Class<?>>();
 		classes.addAll(FSclasses);
-		classes.addAll(Jarclasses);
+		//classes.addAll(Jarclasses);
 		return classes;
 		
 	}
@@ -73,7 +60,7 @@ public class ClassListUtil {
     	File directory = new File(Path);
     	if (!directory.exists())  
     	{
-    		System.out.println("unknown path:" +directory.getName());
+    		log.warn("unknown path:" +directory.getName());
     		return classes;  
     	}
     		
@@ -84,7 +71,7 @@ public class ClassListUtil {
            {    
         	   String classname=PackageName +"."+ file.getName().substring(0,file.getName().length() - 6);
         	   if (classname.substring(0,1).equals(".")) classname=classname.substring(1);
-        	   //System.out.println("Class Name:"+classname);
+        	 
         	   classes.add(Class.forName(classname));
             }  
         }   
@@ -124,8 +111,9 @@ public class ClassListUtil {
                                 String className = jarEntryName.substring(0, jarEntryName.lastIndexOf(".")).replace("/", ".");
                                 //Class cls = Class.forName(className);
                                 //System.out.println(cls);
-                                System.out.println("jarEntryName:"+jarEntryName);
-                                System.out.println("className:"+className);
+                                log.warn("jarEntryName:"+jarEntryName);
+                                log.warn("className:"+className);
+                                
                                 classes.add(Class.forName(className));
                             }
                         }

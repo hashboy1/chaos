@@ -1,15 +1,10 @@
 package com.chaos.test;
 
-import java.util.List;
-import javax.annotation.Resource;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import com.chaos.Dao.EmployeeDao;
 import com.chaos.Dao.EmployeeDao2;
-import com.chaos.Domain.Employee;
-import com.chaos.SOAService.PrintServiceTesting;
 
 
 /**

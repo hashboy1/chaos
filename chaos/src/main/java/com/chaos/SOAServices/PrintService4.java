@@ -1,5 +1,9 @@
 package com.chaos.SOAServices;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,25 +14,29 @@ import com.chaos.Dao.EmployeeDao2;
 import com.chaos.Domain.Employee;
 
 
-@ServiceMapping(Value="printService4",Method =0)   //Service Register
+@ServiceMapping(Value="PrintService4",Method =0)   //Service Register
 @Service
-public class printService4 extends BaseService {
+public class PrintService4 extends BaseService {
 
 	@Autowired
 	private EmployeeDao2 employeeDao;
-	
+	private final Logger log = Logger.getLogger(getClass());
 	@Override
-	public String run(String ... Parameter) {	
-		System.out.println("welcome to access print service4");
+	public String run(String ... Parameter) throws Exception {	
+		log.warn("welcome to access print service4");
+		
+		String localIP = InetAddress.getLocalHost().getHostAddress();
+		log.warn("Service Provider IP Address:"+localIP);
+		
 		String result="";
 		for (int i=0;i<Parameter.length;i++)
 		{   
-		    System.out.println("parameter"+i+":"+Parameter[i]);
+			log.warn("parameter"+i+":"+Parameter[i]);
 			result+=Parameter[i];
 		}
 		
 		if (Parameter.length>0) {
-		System.out.println("Dao:"+employeeDao);
+			log.warn("Dao:"+employeeDao);
 		Employee emp=employeeDao.selectEmployeeByNo(Parameter[0]);
 		if (emp == null)
 		{
@@ -40,7 +48,7 @@ public class printService4 extends BaseService {
 		}
 		}
 		
-		return "print Service4:" + result;
+		return "print Service4:" + result+"Service Provider IP Address:"+localIP;
        	
 	}
 

@@ -1,5 +1,9 @@
 package com.chaos.SOAServices;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.chaos.Annotation.ServiceMapping;
@@ -9,18 +13,14 @@ import com.chaos.BaseService.BaseService;
 @Service
 @ServiceMapping(Value="PrintServiceTesting",Method =0)
 public class PrintServiceTesting extends BaseService {
-	
-	PrintServiceTesting()
-	{
-		
-		System.out.println("welcome to access PrintServiceTesting service");
-		
-	}
-	
-	
+	private final Logger log = Logger.getLogger(getClass());
 
 	@Override
-	public String run(String ... Parameter) {
+	public String run(String ... Parameter) throws Exception {
+
+		log.warn("welcome to access PrintServiceTesting service");
+		String localIP = InetAddress.getLocalHost().getHostAddress();
+		log.warn("Service Provider IP Address:"+localIP);
 		
 		String result="";
 		for (int i=0;i<Parameter.length;i++)
@@ -28,7 +28,7 @@ public class PrintServiceTesting extends BaseService {
 			result+=Parameter[i];
 		}
 		
-		return "print Service Testing:" + result;
+		return "print Service Testing:" + result+"Service Provider IP Address:"+localIP;
 		
 	}
 
