@@ -924,3 +924,158 @@
 2018-10-15 17:07:25,684 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
 2018-10-15 17:07:25,702 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
 2018-10-15 17:07:25,703 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:22,751 [main] WARN  [com.chaos.Util.ServiceUtil] - ServiceUtil Created!!
+2018-10-15 17:09:22,947 [main] WARN  [com.chaos.Util.ClassListUtil] - Basepackage:com.chaos.SOAService
+2018-10-15 17:09:22,955 [main] WARN  [com.chaos.Util.ServiceUtil] - Class List:[interface com.chaos.Annotation.ServiceMapping, class com.chaos.Aop.Aop, class com.chaos.BaseService.BaseService, class com.chaos.BootStrap.SOAStartup, class com.chaos.ClassLoader.RemoteClassLoader, class com.chaos.Config.configer, class com.chaos.Config.configerContextHolder, class com.chaos.Context.SpringContextHolder, interface com.chaos.Dao.EmployeeDao, interface com.chaos.Dao.EmployeeDao2, class com.chaos.Domain.Employee, class com.chaos.Domain.fileBlock, class com.chaos.Domain.Invoice, class com.chaos.FileSystem.HttpHashMapFileServer, class com.chaos.FileSystem.HttpHashMapFileServerHandler, class com.chaos.FileSystemCluster.DataNodeClient, class com.chaos.FileSystemCluster.DataNodeClientHandler, class com.chaos.FileSystemCluster.DataNodeServer, class com.chaos.FileSystemCluster.DataNodeServerHandler, class com.chaos.FileSystemCluster.HttpNameNodeServer, class com.chaos.FileSystemCluster.HttpNameNodeServerHandler, class com.chaos.SOA.HttpJSONSOAServer, class com.chaos.SOA.HttpJSONSOAServerHandler, class com.chaos.SOA.HttpJSONSOAServerHandlerSpring, class com.chaos.SOA.HttpJSONSOAServerSpring, class com.chaos.SOAServices.PrintService2, class com.chaos.SOAServices.PrintService4, class com.chaos.SOAServices.PrintServiceTesting, class com.chaos.Util.ClassListUtil, class com.chaos.Util.DigitalUtil, class com.chaos.Util.fileUtil, class com.chaos.Util.hashmapUtil, class com.chaos.Util.HttpUtil, class com.chaos.Util.JarMain, class com.chaos.Util.LoadBalanceUtil, class com.chaos.Util.PathUtil, class com.chaos.Util.ServiceUtil, class com.chaos.Util.testUtil]
+2018-10-15 17:09:22,958 [main] WARN  [com.chaos.Util.ServiceUtil] - Create hosturl key:/SOAServices/PrintService2/192.168.0.160:8888
+2018-10-15 17:09:22,974 [main] WARN  [com.chaos.Util.ServiceUtil] - Create hosturl key:/SOAServices/PrintService4/192.168.0.160:8888
+2018-10-15 17:09:22,995 [main] WARN  [com.chaos.Util.ServiceUtil] - Create hosturl key:/SOAServices/PrintServiceTesting/192.168.0.160:8888
+2018-10-15 17:09:23,269 [main] WARN  [com.chaos.SOA.HttpJSONSOAServerSpring] - HTTP 文件服务器启动, 地址是： http://192.168.0.160:8888/index.html
+2018-10-15 17:09:26,971 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/index
+2018-10-15 17:09:26,974 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService2
+2018-10-15 17:09:26,975 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService4
+2018-10-15 17:09:26,976 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
+2018-10-15 17:09:26,988 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:09:26,988 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:29,529 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/index
+2018-10-15 17:09:29,533 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService2
+2018-10-15 17:09:29,535 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService4
+2018-10-15 17:09:29,537 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
+2018-10-15 17:09:29,563 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:09:29,563 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:29,879 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/index
+2018-10-15 17:09:29,884 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService2
+2018-10-15 17:09:29,886 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService4
+2018-10-15 17:09:29,888 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
+2018-10-15 17:09:29,905 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:09:29,905 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:31,003 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService2
+2018-10-15 17:09:31,003 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:31,008 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:09:31,009 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:09:31,010 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.160:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:09:31,019 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/com.chaos.SOAServices.PrintService2?
+2018-10-15 17:09:31,019 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:31,024 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOAServices.PrintService2] - welcome to access print service2
+2018-10-15 17:09:31,025 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOAServices.PrintService2] - Service Provider IP Address:192.168.0.160
+2018-10-15 17:09:31,057 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:09:31,057 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:32,364 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:09:32,364 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:32,991 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService4
+2018-10-15 17:09:32,991 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:32,997 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:09:32,998 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:09:32,998 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:09:35,049 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:09:35,049 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:35,753 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintServiceTesting
+2018-10-15 17:09:35,753 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:35,760 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintServiceTesting
+2018-10-15 17:09:35,762 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintServiceTesting
+2018-10-15 17:09:35,763 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintServiceTesting
+2018-10-15 17:09:37,118 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:09:37,118 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:37,694 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService4
+2018-10-15 17:09:37,695 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:37,700 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:09:37,701 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:09:37,702 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:09:57,357 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/index
+2018-10-15 17:09:57,365 [nioEventLoopGroup-3-8] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService2
+2018-10-15 17:09:57,367 [nioEventLoopGroup-3-8] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService4
+2018-10-15 17:09:57,368 [nioEventLoopGroup-3-8] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
+2018-10-15 17:09:58,071 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:09:58,071 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:59,545 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService4
+2018-10-15 17:09:59,545 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:09:59,554 [nioEventLoopGroup-3-2] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:09:59,556 [nioEventLoopGroup-3-2] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:09:59,556 [nioEventLoopGroup-3-2] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:01,534 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:01,534 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:02,992 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService2
+2018-10-15 17:10:02,992 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:02,999 [nioEventLoopGroup-3-4] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:03,002 [nioEventLoopGroup-3-4] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:03,002 [nioEventLoopGroup-3-4] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:04,649 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:04,649 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:05,521 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService4
+2018-10-15 17:10:05,521 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:05,528 [nioEventLoopGroup-3-6] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:05,533 [nioEventLoopGroup-3-6] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:05,533 [nioEventLoopGroup-3-6] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.160:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:05,540 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/com.chaos.SOAServices.PrintService4?
+2018-10-15 17:10:05,540 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:05,544 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOAServices.PrintService4] - welcome to access print service4
+2018-10-15 17:10:05,546 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOAServices.PrintService4] - Service Provider IP Address:192.168.0.160
+2018-10-15 17:10:05,572 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:05,572 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:07,239 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:07,239 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:07,963 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintServiceTesting
+2018-10-15 17:10:07,963 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:07,972 [nioEventLoopGroup-3-2] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintServiceTesting
+2018-10-15 17:10:07,974 [nioEventLoopGroup-3-2] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintServiceTesting
+2018-10-15 17:10:07,974 [nioEventLoopGroup-3-2] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintServiceTesting
+2018-10-15 17:10:09,091 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:09,091 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:37,304 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/index
+2018-10-15 17:10:37,307 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService2
+2018-10-15 17:10:37,309 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService4
+2018-10-15 17:10:37,311 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
+2018-10-15 17:10:37,333 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:37,333 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:37,502 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/index
+2018-10-15 17:10:37,506 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService2
+2018-10-15 17:10:37,507 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService4
+2018-10-15 17:10:37,510 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
+2018-10-15 17:10:37,531 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:37,531 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:37,664 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/index
+2018-10-15 17:10:37,668 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService2
+2018-10-15 17:10:37,669 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService4
+2018-10-15 17:10:37,671 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
+2018-10-15 17:10:37,694 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:37,694 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:37,835 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/index
+2018-10-15 17:10:37,839 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService2
+2018-10-15 17:10:37,841 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintService4
+2018-10-15 17:10:37,842 [nioEventLoopGroup-3-3] WARN  [com.chaos.Util.ServiceUtil] - Service Node Name:/SOAServices/PrintServiceTesting
+2018-10-15 17:10:37,861 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:37,861 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:38,401 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService2
+2018-10-15 17:10:38,401 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:38,406 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:38,408 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:38,408 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:39,778 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:39,778 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:40,576 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService4
+2018-10-15 17:10:40,577 [nioEventLoopGroup-3-7] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:40,586 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:40,588 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:40,588 [nioEventLoopGroup-3-7] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:41,911 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:41,911 [nioEventLoopGroup-3-8] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:42,600 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService2
+2018-10-15 17:10:42,601 [nioEventLoopGroup-3-1] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:42,611 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:42,613 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:42,614 [nioEventLoopGroup-3-1] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.160:8888/com.chaos.SOAServices.PrintService2
+2018-10-15 17:10:42,620 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/com.chaos.SOAServices.PrintService2?
+2018-10-15 17:10:42,620 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:42,620 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOAServices.PrintService2] - welcome to access print service2
+2018-10-15 17:10:42,622 [nioEventLoopGroup-3-2] WARN  [com.chaos.SOAServices.PrintService2] - Service Provider IP Address:192.168.0.160
+2018-10-15 17:10:42,650 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:42,650 [nioEventLoopGroup-3-3] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:43,589 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:43,589 [nioEventLoopGroup-3-4] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:44,259 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/PrintService4
+2018-10-15 17:10:44,260 [nioEventLoopGroup-3-5] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
+2018-10-15 17:10:44,267 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:44,268 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - child node data:192.168.0.160:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:44,269 [nioEventLoopGroup-3-5] WARN  [com.chaos.Util.ServiceUtil] - get the detail service URL:http://192.168.0.249:8888/com.chaos.SOAServices.PrintService4
+2018-10-15 17:10:45,274 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - request url:/favicon.ico
+2018-10-15 17:10:45,274 [nioEventLoopGroup-3-6] WARN  [com.chaos.SOA.HttpJSONSOAServerHandlerSpring] - this is the Post Methond
