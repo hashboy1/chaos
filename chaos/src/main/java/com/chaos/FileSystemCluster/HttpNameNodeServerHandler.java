@@ -103,7 +103,7 @@ public class HttpNameNodeServerHandler extends SimpleChannelInboundHandler<FullH
 
     
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx,
+    protected void channelRead0(ChannelHandlerContext ctx,
             FullHttpRequest request) throws Exception {
     	/*
     	System.out.println("-----------------------------------");

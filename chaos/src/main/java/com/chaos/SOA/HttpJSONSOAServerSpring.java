@@ -39,20 +39,19 @@ public class HttpJSONSOAServerSpring {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try{
         	
-          //register the temporary key in zookeeper, session will still exists until the session closed
+          //register the temporary key in zookeeper, session will still exist until the session closed
             cl.init(IP,port,zk);
             cl.ZooKeeperServiceRegister();
-    
-    	    
+        
     	    //web service startup
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
             .childHandler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
-                    ch.pipeline().addLast("http-decoder", new HttpRequestDecoder());
-                    ch.pipeline().addLast("http-aggregator", new HttpObjectAggregator(65536));
-                    ch.pipeline().addLast("http-encoder", new HttpResponseEncoder());
+                    ch.pipeline().addLast("http-decoder", new HttpRequestDecoder());    //decoder
+                    ch.pipeline().addLast("http-encoder", new HttpResponseEncoder());   //encoder
+                    ch.pipeline().addLast("http-aggregator", new HttpObjectAggregator(65536));   
                     ch.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
                     ch.pipeline().addLast("fileServerHandler", new HttpJSONSOAServerHandlerSpring(url,cl));
                 }
@@ -60,7 +59,6 @@ public class HttpJSONSOAServerSpring {
             ChannelFuture f = b.bind(IP, port).sync();
             System.out.println("HTTP 文件服务器启动, 地址是： " + "http://"+ IP +":" + port + url);
             f.channel().closeFuture().sync();
-            
         }finally{
         	zk.close();
             bossGroup.shutdownGracefully();

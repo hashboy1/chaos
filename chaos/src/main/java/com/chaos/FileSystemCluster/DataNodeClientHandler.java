@@ -25,12 +25,7 @@ public class DataNodeClientHandler extends SimpleChannelInboundHandler<ByteBuf> 
         ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!&", CharsetUtil.UTF_8));
 
     }  
-    /** 
-     *此方法会在接收到服务器数据后调用  
-     * */  
-    public void channelRead0(ChannelHandlerContext ctx, ByteBuf in) {  
-        System.out.println("Client received: " + ByteBufUtil.hexDump(in.readBytes(in.readableBytes())));  
-    }  
+   
     /** 
      *捕捉到异常  
      * */  
@@ -39,7 +34,7 @@ public class DataNodeClientHandler extends SimpleChannelInboundHandler<ByteBuf> 
         ctx.close();  
     }
 	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
 		// TODO Auto-generated method stub
 		  System.out.println("Client received: " + ByteBufUtil.hexDump(in.readBytes(in.readableBytes())));
 		

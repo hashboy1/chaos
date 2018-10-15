@@ -97,7 +97,7 @@ public class DataNodeServerHandler extends SimpleChannelInboundHandler{
 
 
 	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 		// TODO Auto-generated method stub
 		
 		

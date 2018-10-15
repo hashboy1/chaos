@@ -11,7 +11,6 @@ import com.chaos.Util.ServiceUtil;
 import com.chaos.Util.testUtil;
 import com.google.gson.JsonObject;
 
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
@@ -35,7 +34,6 @@ public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<
     private ServiceUtil su;    //for services register and list
     
     
-    
     public HttpJSONSOAServerHandlerSpring(String url,ServiceUtil su) {
         this.url = url;
         this.su=su;
@@ -44,7 +42,7 @@ public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<
     }
     
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx,
+    protected void channelRead0(ChannelHandlerContext ctx,
             FullHttpRequest request) throws Exception {
     	
     	//System.out.println("-----------------------------------");
@@ -78,8 +76,7 @@ public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<
         }
         
         //check unuseful message
-       if (uri.equals("/favicon.ico")) return; //unuseful message  
-       
+       if (uri.equals("/favicon.ico")) return; //get the web icon by the browser
        if (uri.indexOf(".") ==-1 )   //this is one call  service name,we must get the detail URL from zookeeper,it will be redirected to new url.
        {
     	   if (uri.substring(0,1).equals("/")) uri=uri.substring(1);  //reduce the "/"
@@ -151,17 +148,13 @@ public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<
         
      try 
      {
-       
     	
     	//Class Constructed,maybe i need create one class to implement its
         String writecontent = ServiceUtil.callBaseServiceSpring(uri.substring(1), parameter);            
         JsonObject obj = new JsonObject();
         obj.addProperty("result", 0);
         obj.addProperty("content", writecontent);
-  
         ByteBuf buffer = Unpooled.copiedBuffer(obj.toString(),CharsetUtil.UTF_8); 
-
-         
         //construct the HTTP header
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset=UTF-8");
@@ -287,4 +280,5 @@ public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<
        
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE); 
     }
+
 }

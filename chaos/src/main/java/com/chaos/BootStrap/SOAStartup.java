@@ -10,17 +10,22 @@ import com.chaos.Context.SpringContextHolder;
 import com.chaos.SOA.HttpJSONSOAServerSpring;
 
 public class SOAStartup {
-
+	
+	
+	static
+	{
+		
+		//read the chaos configuration file
+				configerContextHolder cch=new configerContextHolder();
+				cch.setProp("chaos.properties");
+				
+				//load the spring configuration file
+				SpringContextHolder sc= new SpringContextHolder();
+			    sc.setApplicationContext(new FileSystemXmlApplicationContext("classpath:applicationContext.xml"));	
+	}
+	
 	public static void main(String[] args) throws Exception  {
        
-		//read the chaos configuration file
-		configerContextHolder cch=new configerContextHolder();
-		cch.setProp("chaos.properties");
-		
-		//load the spring configuration file
-		SpringContextHolder sc= new SpringContextHolder();
-	    sc.setApplicationContext(new FileSystemXmlApplicationContext("classpath:applicationContext.xml"));
-
 	    //get the information from configuration file
 	    HttpJSONSOAServerSpring hs =(HttpJSONSOAServerSpring)SpringContextHolder.getApplicationContext().getBean("HttpJSONSOAServerSpring");
 		String IP = configerContextHolder.getProp("chaos.Services.DefaultHttpIP");
