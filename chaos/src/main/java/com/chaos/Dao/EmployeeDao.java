@@ -5,10 +5,12 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.chaos.Annotation.MyBatisDao;
 import com.chaos.Context.SpringContextHolder;
 import com.chaos.Domain.Employee;
 import com.chaos.SOA.HttpJSONSOAServerSpring;
 
+@MyBatisDao
 public interface EmployeeDao {
 	/*
 	 private  SqlSession sqlSession;
