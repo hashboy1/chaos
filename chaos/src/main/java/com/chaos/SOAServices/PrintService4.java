@@ -16,7 +16,7 @@ import com.chaos.Domain.Employee;
 
 @ServiceMapping(Value="PrintService4",Method =0)   //Service Register
 @Service
-public class PrintService4 extends BaseService {
+public class PrintService4 implements BaseService {
 
 	@Autowired
 	private EmployeeDao2 employeeDao;

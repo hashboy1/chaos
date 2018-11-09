@@ -216,10 +216,7 @@ public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<
     
     
     private  void welcomeMsg(ChannelHandlerContext ctx) throws Exception{
-        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-        response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset=UTF-8");
-        response.headers().set(HttpHeaderNames.ORIGIN,"*");
-        response.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN,"*");
+     
       
         StringBuilder buf = new StringBuilder();
         
@@ -269,8 +266,22 @@ public class HttpJSONSOAServerHandlerSpring extends SimpleChannelInboundHandler<
     }
         
         buf.append("</ul></body></html>\r\n");
+        /*
+         * 
+         * public DefaultFullHttpResponse(HttpVersion version, HttpResponseStatus status, ByteBuf content) 
+           byte[] bytes;
+           ByteBuf byteBuf = Unpooled.wrappedBuffer(bytes);
+         * 
+         */
+        
         
         ByteBuf buffer = Unpooled.copiedBuffer(buf,CharsetUtil.UTF_8);  
+        
+        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+        response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset=UTF-8");
+        response.headers().set(HttpHeaderNames.ORIGIN,"*");
+        response.headers().set(HttpHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN,"*");
+        
         response.content().writeBytes(buffer);  
         buffer.release(); 
        

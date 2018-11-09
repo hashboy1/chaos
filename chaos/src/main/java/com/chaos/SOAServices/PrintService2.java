@@ -19,7 +19,7 @@ import com.chaos.Domain.Employee;
 
 @ServiceMapping(Value="PrintService2",Method =0)   //Service Register
 @Service                                           //manage this function by spring
-public class PrintService2 extends BaseService {   //the service class must belong to one java package  
+public class PrintService2 implements BaseService {   //the service class must belong to one java package  
 	@Autowired
 	private EmployeeDao2 employeeDao;
 	private final Logger log = Logger.getLogger(getClass());

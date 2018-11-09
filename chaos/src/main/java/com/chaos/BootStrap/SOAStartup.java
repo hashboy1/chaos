@@ -8,8 +8,9 @@ import org.apache.zookeeper.ZooKeeper;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import com.chaos.Config.configerContextHolder;
+
 import com.chaos.Context.SpringContextHolder;
+import com.chaos.Context.configerContextHolder;
 import com.chaos.SOA.HttpJSONSOAServerSpring;
 
 public class SOAStartup {

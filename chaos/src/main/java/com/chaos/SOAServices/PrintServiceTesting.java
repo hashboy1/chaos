@@ -12,7 +12,7 @@ import com.chaos.BaseService.BaseService;
 
 @Service
 @ServiceMapping(Value="PrintServiceTesting",Method =0)
-public class PrintServiceTesting extends BaseService {
+public class PrintServiceTesting implements BaseService {
 	private final Logger log = Logger.getLogger(getClass());
 
 	@Override

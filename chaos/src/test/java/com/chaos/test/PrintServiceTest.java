@@ -7,7 +7,7 @@ import com.chaos.BaseService.BaseService;
 
 
 @Service
-public class PrintServiceTest extends BaseService {
+public class PrintServiceTest implements BaseService {
 	
 	PrintServiceTest()
 	{

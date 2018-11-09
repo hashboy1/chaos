@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.chaos.Annotation.ServiceMapping;
 import com.chaos.BaseService.BaseService;
-import com.chaos.Config.configerContextHolder;
 import com.chaos.Context.SpringContextHolder;
+import com.chaos.Context.configerContextHolder;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -63,7 +63,7 @@ public class ServiceUtil {
 		
 	}
 	
-	//static function for call the ancestor method
+	//static function for call the ancestor method reflect and dynamic proxy model
 	public static String callBaseServiceReflect(String className,String...parameter) throws Exception
 	{
 		Class a = Class.forName(className);
